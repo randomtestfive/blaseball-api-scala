@@ -2,6 +2,7 @@ package dev.taylorh.blaseball.model
 
 import Player._
 import dev.taylorh.blaseball.api.BlaseballApi
+import dev.taylorh.blaseball.model.feed.FeedItem
 import play.api.libs.json.{JsPath, Reads}
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -18,6 +19,13 @@ case class Player(id: String,
                   ratings: Ratings
                  ) {
   def getLeagueTeam(implicit blaseballApi: BlaseballApi): Team = blaseballApi.team(teamAttributes.leagueTeamId)
+
+  def getFeed(limit: Option[Int] = None,
+              sort: Option[Int] = None,
+              category: Option[Int] = None,
+              start: Option[String] = None)
+             (implicit blaseballApi: BlaseballApi): Seq[FeedItem] =
+    blaseballApi.playerFeed(id, limit, sort, category, start)
 }
 
 object Player {

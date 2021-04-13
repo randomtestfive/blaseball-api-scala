@@ -21,7 +21,7 @@ Player(b348c037-eefc-4b81-8edd-dfa96188a97e,Lowe Forbes,PlayerAttributes(Set(TRI
 
 ## checklist
  - [ ] players
-   - [ ] stats (i think they added new ones?)
+   - [x] stats ~~(i think they added new ones?)~~ they didnt im just forgetful
    - [ ] feed
      - [ ] metadata
      - [x] everything else
