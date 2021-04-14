@@ -7,6 +7,8 @@ import play.api.libs.json.{Json, Reads}
 import scala.io.Source
 
 object BlaseballApiNoCache extends BlaseballApi {
+  protected val apiBase: String = "https://www.blaseball.com/database/"
+
   private implicit val teamSetReads: Reads[Set[Team]] = Reads.set[Team]
   private implicit val playerSeqReads: Reads[Seq[Player]] = Reads.seq[Player]
 

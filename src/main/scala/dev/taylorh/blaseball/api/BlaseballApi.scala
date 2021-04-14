@@ -4,8 +4,6 @@ import dev.taylorh.blaseball.model.feed.FeedItem
 import dev.taylorh.blaseball.model.{Division, League, Player, Subleague, Team}
 
 trait BlaseballApi {
-  protected val apiBase: String = "https://www.blaseball.com/database/"
-
   //def allDivisions: Set[Division]
 
   def allTeams: Set[Team]

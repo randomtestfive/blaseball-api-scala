@@ -1,6 +1,6 @@
 name := "blaseball-api-scala"
 organization := "dev.taylorh"
-version := "0.0.14-SNAPSHOT"
+version := "0.0.16-SNAPSHOT"
 
 scalaVersion := "2.13.5"
 

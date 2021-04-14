@@ -16,7 +16,8 @@ case class Player(id: String,
                   pitching: PitchingAttributes,
                   other: OtherAttributes,
                   teamAttributes: TeamAttributes,
-                  ratings: Ratings
+                  ratings: Ratings,
+                  items: Seq[Item]
                  ) {
   def getLeagueTeam(implicit blaseballApi: BlaseballApi): Team = blaseballApi.team(teamAttributes.leagueTeamId)
 
@@ -26,6 +27,17 @@ case class Player(id: String,
               start: Option[String] = None)
              (implicit blaseballApi: BlaseballApi): Seq[FeedItem] =
     blaseballApi.playerFeed(id, limit, sort, category, start)
+
+  def effectiveBaserunningRating: Double = ratings.baserunningRating + items.map(_.baserunningRating).sum
+  def effectivePitchingRating: Double = ratings.pitchingRating + items.map(_.pitchingRating).sum
+  def effectiveHittingRating: Double = ratings.hittingRating + items.map(_.hittingRating).sum
+  def effectiveDefenseRating: Double = ratings.defenseRating + items.map(_.defenseRating).sum
+
+  def effectiveOverallRating: Double =
+    effectiveBaserunningRating +
+      effectivePitchingRating +
+      effectiveHittingRating +
+      effectiveDefenseRating
 }
 
 object Player {
@@ -116,6 +128,7 @@ object Player {
       JsPath.read[PitchingAttributes] and
       JsPath.read[OtherAttributes] and
       JsPath.read[TeamAttributes] and
-      JsPath.read[Ratings]
+      JsPath.read[Ratings] and
+      (JsPath \ "items").read[Seq[Item]]
     )(Player.apply _)
 }

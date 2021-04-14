@@ -8,6 +8,9 @@ mostly isnt here
 
 ## actual use
 ```scala
+import dev.taylorh.blaseball.api._
+import dev.taylorh.blaseball.util._
+
 implicit val api: BlaseballApi = new BlaseballApiCache(BlaseballApiNoCache)
 
 val players = BlaseballUtil.getNonShadowPlayersInLeague(BlaseballConstants.internetBlaseballLeagueId)

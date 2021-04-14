@@ -1,5 +1,6 @@
 package dev.taylorh.blaseball.model.feed
 
+import dev.taylorh.blaseball.util.JsonUtil
 import play.api.libs.json.{JsPath, JsSuccess, JsValue, Json, Reads, __}
 import play.api.libs.functional.syntax._
 
@@ -8,10 +9,7 @@ sealed trait FeedItemMetadata
 object FeedItemMetadata {
   case object NoMetadata extends FeedItemMetadata
 
-  private val renameType = __.json.update(
-    (__ \ "metadataType").json.copyFrom((__ \ "type").json.pick)
-  ) andThen
-    (__ \ "type").json.prune
+  private val renameType = JsonUtil.rename("type", "metadataType")
 
   case class GainMod(mod: String,
                      play: Option[Int],
